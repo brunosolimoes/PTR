@@ -4,16 +4,13 @@
   dataFim:
 */
 
-define typedef matrix Matrix;
+typedef struct matrix Matrix;
 
 //Criar matriz
 Matrix createMatrix(int ordem);
 
 //Deletar matriz
 bool deletMatrix(Matrix *mat);
-
-//obter a ordem da matriz
-int ordenMatrix(Matrix *mat)
 
 //Obter o determinante da matriz
 double detMatrix(Matrix *mat);
@@ -24,5 +21,8 @@ Matrix invertMatrix(Matrix *mat);
 //Cria uma segunda matriz que é a transposta da recebida
 Matrix transportMatrix(Matrix *mat);
 
-//Preencher a matriz por inteira com os primeiro valores recebidos de um vetor, preenche linha por linha 
-void fillMatrix(Matrix *mat, double *values)
+//Preencher a matriz por inteira com os n => (ordem X ordem) primeiros valores recebidos de um vetor, preenche linha por linha 
+bool fillMatrix(Matrix *mat, double *values);
+
+//trocar o valor de uma posição especifica na matriz
+void changeEspecValueMatrix(Matrix *mat, int lin, int col, double value);
