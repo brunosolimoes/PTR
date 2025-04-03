@@ -4,10 +4,16 @@
   dataFim:
 */
 
+#ifndef _MATRIX_H
+#DEFINE _MATRIX_H
+
 typedef struct matrix Matrix;
 
 //Criar matriz
-Matrix createMatrix(int ordem);
+Matrix createMatrix(char *name, int lin, int col, double value);
+
+//Criar matriz a partir de um vetor de string
+Matrix createMatrixWithString(int size, char *str[]);
 
 //Deletar matriz
 bool deletMatrix(Matrix *mat);
@@ -26,3 +32,5 @@ bool fillMatrix(Matrix *mat, double *values);
 
 //trocar o valor de uma posição especifica na matriz
 void changeEspecValueMatrix(Matrix *mat, int lin, int col, double value);
+
+#endif
