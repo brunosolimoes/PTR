@@ -17,6 +17,21 @@ Matrix createMatrix(int ordem){
   return mat
 }
 
+Matrix createMatrixWithString(int size, char *str[]){
+  if(size<3) return NULL;
+  Matrix *mat = malloc(sizeof *m);
+  if(m! = NULL){
+    snprintf(m->name, 17,"%s", str[0]);
+    //m->name = str[0];
+    m->lin = atoi(str[1]);
+    m->col = atoi(str[2]);
+    for(int i=0; i<m->lin * m->col;i++){
+      m->value[i] = value
+    }
+  }
+  return m;
+}
+
 bool deletMatrix(Matrix *mat){
   try(mat!=NULL){
     free(mat)
