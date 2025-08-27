@@ -1,0 +1,39 @@
+% Carregar os dados do arquivo
+data = dlmread('resultados.txt', ',', 1, 0); % Pula a primeira linha do cabeçalho
+
+% Extrair colunas específicas
+t = data(:, 1);        % Tempo
+u = data(:, 2);        % Controle u(t)
+x_c = data(:, 3);      % Posição X (PosX)
+y_c = data(:, 4);      % Posição Y (PosY)
+theta = data(:, 5);    % Orientação (Theta)
+
+% Plotar u(t) - Controle em função do tempo
+figure;
+plot(t, u, '-b', 'LineWidth', 1.5);
+xlabel('Tempo (s)');
+ylabel('Controle u(t)');
+title('Gráfico de u(t)');
+grid on;
+
+% Plotar y(t) - Posições X, Y e orientação θ ao longo do tempo
+figure;
+plot(t, x_c, '-r', 'LineWidth', 1.5, 'DisplayName', 'Posição X');
+hold on;
+plot(t, y_c, '-g', 'LineWidth', 1.5, 'DisplayName', 'Posição Y');
+plot(t, theta, '-m', 'LineWidth', 1.5, 'DisplayName', 'Orientação θ');
+xlabel('Tempo (s)');
+ylabel('Valores de Posições e Orientação');
+legend;
+title('Gráfico de y(t) - Posições X, Y e Orientação θ ao longo do tempo');
+grid on;
+hold off;
+
+% Plotar yc(t) × xc(t) - Trajetória no plano com orientação
+figure;
+quiver(x_c, y_c, cos(theta), sin(theta), 'AutoScale', 'on', 'Color', 'k');
+xlabel('Posição X');
+ylabel('Posição Y');
+title('Trajetória no plano (y_c(t) × x_c(t)) com orientação θ');
+grid on;
+axis equal;
