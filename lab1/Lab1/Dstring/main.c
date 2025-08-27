@@ -1,50 +1,53 @@
 /*
-Aluno: Matheus Carvalho Reges
-Matrícula: 22152027
-
-Trabalho: lab1 - PTR - Dstring
+laboratorio 01 -> MyDString
+Bruno de Moura Solimões - 22051316
 */
 
 #include <stdio.h>
-#include "Dstring.h"
+#include "MyDString.h"
 
 int main() {
-  // Criando as Dstrings com novos valores
-  Dstring* saudacao = criarDstringPtr("Oi");
-  Dstring* simbolo = criarDstringChar('?');
-  Dstring* idade = criarDstringInt(25);
-  Dstring* populacao = criarDstringLong(7800000000L);
-  Dstring* pi = criarDstringFloat(3.14f);
-  Dstring* copia_saudacao = copiarDstring(saudacao);
-
-  // Exibindo as Dstrings
-  printf("saudacao: %s\n", $(saudacao)); // criarDstringPtr
-  printf("simbolo: %s\n", $(simbolo)); // criarDstringChar
-  printf("idade: %s\n", $(idade)); // criarDstringInt
-  printf("populacao: %s\n", $(populacao)); // criarDstringLong
-  printf("pi: %s\n", $(pi)); // criarDstringFloat
-  printf("copia_saudacao: %s\n", $(copia_saudacao)); // copiarDstring
+  //----------------Criando as strings----------------//
+  MyDString* name = newString("Bruno Solimoes");
+  MyDString* simb = charToString('!');
+  MyDString* age = intToString(24);
+  MyDString* myFutureWealth = longToString(9000000000L);
+  MyDString* radomFloatNumber = floatToString(25.007f);
+  MyDString* copName = copString(name);
+  //--------------------------------------------------//
   
-  // Concatenando Dstrings
-  concatenarDstrings(saudacao, simbolo); 
-  printf("Após a concatenação, saudacao: %s\n", $(saudacao));
+  //--------------Imprimindo as strings---------------//
+  printf("Nome do cara que quer se formar esse periodo: %s\n", $(name));
+  printf("O simbolo do grau do desespero: %s\n", $(simb));
+  printf("Idade atual dele: %s\n", $(age));
+  printf("O quando ele quer deixar de heranca: %s\n", $(myFutureWealth));
+  printf("25 filmes do 007: %s\n", $(radomFloatNumber));
+  printf("Copia do nome: %s\n", $(copName));
+  //--------------------------------------------------//
+
+  //--------------Concatenando Dstrings---------------//
+  concatenarDstrings(name, simb); 
+  printf("Concatenando nome e simbolo: %s\n", $(name));
+  //--------------------------------------------------//
+
+  //------Exibindo o tamanho da Dstring saudacao------//
+  printf("Tamanho do nome atualmente: %zu\n", lenString(name));
+  //--------------------------------------------------//
   
-  // Exibindo o tamanho da Dstring saudacao
-  printf("Tamanho de saudacao: %zu\n", obterTamanhoDstring(saudacao));
-
-  // Liberando a memória alocada
-  free(saudacao->buffer);
-  free(saudacao);
-  free(simbolo->buffer);
-  free(simbolo);
-  free(idade->buffer);
-  free(idade);
-  free(populacao->buffer);
-  free(populacao);
-  free(pi->buffer);
-  free(pi);
-  free(copia_saudacao->buffer);
-  free(copia_saudacao);
-
+  //------------Liberando a memória alocada-----------//
+  free(name->bufStr);
+  free(name);
+  free(simb->bufStr);
+  free(simb);
+  free(age->bufStr);
+  free(age);
+  free(myFutureWealth->bufStr);
+  free(myFutureWealth);
+  free(radomFloatNumber->bufStr);
+  free(radomFloatNumber);
+  free(copName->bufStr);
+  free(copName);
+  //--------------------------------------------------//
+  
   return 0;
 }
