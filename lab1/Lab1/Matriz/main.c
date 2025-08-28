@@ -66,7 +66,7 @@ double detMatrixTest(Matrix* mat) {
   double det = detMatrix(mat);
   printf("----------Calculo do determiante da matriz:----------");
   showMatrix(mat);
-  printf("Determinante: ");
+  printf("Determinante da matriz acima: ");
   if (isnan(det) || isinf(det)) {
     printf("ERRO: - Erro ao calcular determinante da matriz.");
     printf("\n-----------------------------------------\n\n");
@@ -118,17 +118,6 @@ int main() {
   m2->data[2][2] = 4;
 
   Matrix* m3 = newMatrix(3, 3);
-  m2->data[0][0] = 3;
-  m2->data[0][1] = 1;
-  m2->data[0][2] = 9;
-  m2->data[1][0] = 0;
-  m2->data[1][1] = 5;
-  m2->data[1][2] = 6;
-  m2->data[2][0] = 2;
-  m2->data[2][1] = 2;
-  m2->data[2][2] = 8;
-
-  Matrix* m4 = newMatrix(3, 3);
   m2->data[0][0] = 7;
   m2->data[0][1] = 5;
   m2->data[0][2] = 2;
@@ -140,25 +129,19 @@ int main() {
   m2->data[2][2] = 1;
 
   sumMatrixsTest(m1, m2);
-  subMatrixsTest(m4, m2);
-  multMatrixsTest(m2, m3);
-  multMatrixScaleTest(m3, 7);
+  subMatrixsTest(m3, m2);
+  multMatrixsTest(m1, m2);
+  multMatrixScaleTest(m2, 7);
   detMatrixTest(m1);
   
-  Matrix* invM1 = test_invert_matrix(m1);
-  if (invM1) {
-    deletMatrix(invM1);
-  }
-
-  Matrix* invM1 = test_invert_matrix(m1);
-  if (invM1) {
-    deletMatrix(invM1);
+  Matrix* inv = invMatrixTest(m1);
+  if (inv) {
+    deletMatrix(inv);
   }
 
   deletMatrix(m1);
   deletMatrix(m2);
   deletMatrix(m3);
-  deletMatrix(m4);
   
   return 0;
 }

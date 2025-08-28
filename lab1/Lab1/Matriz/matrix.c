@@ -44,11 +44,12 @@ void showMatrix(Matrix *mat) {
     for (int row = 0; row < mat->numRow; row++) {
         for (int col = 0; col < mat->numCol; col++) {
 
-            printf("%f ", mat->data[row][col]);
+            printf("%f |", mat->data[row][col]);
         }
 
-        printf("\n-----------------------------------------\n\n");
+        printf("\n__________________________________\n");
     }
+    printf("-----------------------------------------\n\n");
 }
 //-------------------------------------------------------------------//
 

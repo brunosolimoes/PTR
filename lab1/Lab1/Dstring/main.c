@@ -26,7 +26,7 @@ int main() {
   //--------------------------------------------------//
 
   //--------------Concatenando Dstrings---------------//
-  concatenarDstrings(name, simb); 
+  concatString(name, simb); 
   printf("Concatenando nome e simbolo: %s\n", $(name));
   //--------------------------------------------------//
 
