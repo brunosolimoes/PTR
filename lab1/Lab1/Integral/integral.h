@@ -1,12 +1,12 @@
 #ifndef INTEGRAL_H
 #define INTEGRAL_H
 
-typedef double (*func_ptr)(double x);
+typedef double (*function)(double x);
 
-double soma_riemann(func_ptr f, double inicio, double fim, int subdivisoes);
-double regra_trapezio(func_ptr f, double inicio, double fim, int subdivisoes);
-double regra_simpson(func_ptr f, double inicio, double fim, int subdivisoes);
-double regra_quadratura(func_ptr f, double inicio, double fim, int subdivisoes);
-double regra_gauss_legendre(func_ptr f, double inicio, double fim, int subdivisoes);
+double gaussLegendreRule(function f, double start, double end);
+double quadratureRule(function f, double start, double end, int subdivisions);
+double trapezeRule(function f, double start, double end, int subdivisions);
+double simpsonRule(function f, double start, double end, int subdivisions);
+double riemannSum(function f, double start, double end, int subdivisions);
 
 #endif // INTEGRAL_H

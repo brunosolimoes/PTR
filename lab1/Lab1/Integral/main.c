@@ -1,67 +1,89 @@
 /*
-Aluno: Matheus Carvalho Reges
-Matrícula: 22152027
-
-Trabalho: lab1 - PTR - integral
+laboratorio 01 -> Integral
+Bruno de Moura Solimões - 22051316
 */
 
-// main.c
-
 #include <stdio.h>
-#include "integral.h"
 #include <math.h>
+#include "integral.h"
 
-// Nova função para teste: f(x) = sin(x)
+
+//----------------Nova função para teste, seno de x: f(x) = sin(x)----------------//
 double f(double x) {
-  return sin(x); // Função seno
+  return sin(x);
 }
+//--------------------------------------------------------------------------------//
 
-void teste_soma_riemann() {
-  double inicio = 0;
-  double fim = 3.14159265359; // Pi (integral de 0 a pi de sin(x) dá 2)
-  int subdivisoes = 1000;
+//-----------------Testando a Regra de Gauss-Legendre de 2 pontos-----------------//
+void gaussLegendreRuleTest() {
 
-  printf("Teste da Soma de Riemann: %f\n\n", soma_riemann(f, inicio, fim, subdivisoes));
+  // Pi/2 (integral de 0 a pi/2 de sin(x) dá 1)
+  double start = 0;
+  double end = 3.14159265359 / 2; 
+  
+  printf("Teste da Regra de Gauss-Legendre: %f", gaussLegendreRule(f, start, end));
+  printf("\n-----------------------------------------\n\n");
 }
+//------------------------------------------------------------------------------//
 
-void teste_regra_trapezio() {
-  double inicio = 0;
-  double fim = 3.14159265359 / 2; // Pi/2 (integral de 0 a pi/2 de sin(x) dá 1)
-  int subdivisoes = 1000;
+//-------------------------Testando a regra de Quadratura-----------------------//
+void quadratureRuleTest() {
+  
+  // Pi/2 (integral de 0 a pi/2 de sin(x) dá 1)
+  double start = 0;
+  double end = 3.14159265359 / 2; 
+  int subdivisions = 1000;
 
-  printf("Teste da Regra do Trapézio: %f\n\n", regra_trapezio(f, inicio, fim, subdivisoes));
+  printf("Teste da Regra de Quadratura: %f", quadratureRule(f, start, end, subdivisions));
+  printf("\n-----------------------------------------\n\n");
 }
+//------------------------------------------------------------------------------//
 
-void teste_regra_simpson() {
-  double inicio = 0;
-  double fim = 3.14159265359 / 2; // Pi/2 (integral de 0 a pi/2 de sin(x) dá 1)
-  int subdivisoes = 1000;
+//---------------------------Testando a Regra do Trapézio-----------------------//
+void trapezeRuleTest() {
 
-  printf("Teste da Regra de Simpson: %f\n\n", regra_simpson(f, inicio, fim, subdivisoes));
+  // Pi/2 (integral de 0 a pi/2 de sin(x) dá 1)
+  double start = 0;
+  double end = 3.14159265359 / 2; 
+  int subdivisions = 1000;
+
+  printf("Teste da Regra do Trapézio: %f", trapezeRule(f, start, end, subdivisions));
+  printf("\n-----------------------------------------\n\n");
 }
+//------------------------------------------------------------------------------//
 
-void teste_regra_quadratura() {
-  double inicio = 0;
-  double fim = 3.14159265359 / 2; // Pi/2 (integral de 0 a pi/2 de sin(x) dá 1)
-  int subdivisoes = 1000;
+//-------------------------Testando a regra de Simpson--------------------------//
+void simpsonRuleTest() {
 
-  printf("Teste da Regra de Quadratura: %f\n\n", regra_quadratura(f, inicio, fim, subdivisoes));
+  // Pi/2 (integral de 0 a pi/2 de sin(x) dá 1)
+  double start = 0;
+  double end = 3.14159265359 / 2; 
+  int subdivisions = 1000;
+
+  printf("Teste da Regra de Simpson: %f", simpsonRule(f, start, end, subdivisions));
+  printf("\n-----------------------------------------\n\n");
 }
+//------------------------------------------------------------------------------//
 
-void teste_regra_gauss_legendre() {
-  double inicio = 0;
-  double fim = 3.14159265359 / 2; // Pi/2 (integral de 0 a pi/2 de sin(x) dá 1)
-  int subdivisoes = 2; // O método de Gauss-Legendre de 2 pontos não depende de subdivisões
+//---------------------------Testando a soma de Riemann-------------------------//
+void riemannSumTest() {
 
-  printf("Teste da Regra de Gauss-Legendre: %f\n\n", regra_gauss_legendre(f, inicio, fim, subdivisoes));
+  // Pi (integral de 0 a pi de sin(x) dá 2)
+  double start = 0;
+  double end = 3.14159265359; 
+  int subdivisions = 1000;
+
+  printf("Teste da Soma de Riemann: %f", riemannSum(f, start, end, subdivisions));
+  printf("\n-----------------------------------------\n\n");
 }
+//------------------------------------------------------------------------------//
 
 int main() {
-  teste_soma_riemann();
-  teste_regra_trapezio();
-  teste_regra_simpson();
-  teste_regra_quadratura();
-  teste_regra_gauss_legendre();
 
+  gaussLegendreRuleTest();
+  quadratureRuleTest();
+  trapezeRuleTest();
+  simpsonRuleTest();
+  riemannSumTest();
   return 0;
 }

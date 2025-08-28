@@ -3,20 +3,21 @@
 #define MATRIX_H
 
 typedef struct {
-    int rows;
-    int cols;
+    int numRow;
+    int numCol;
     double** data;
 } Matrix;
 
-Matrix* initialize_matrix(int rows, int cols);
-void destroy_matrix(Matrix* matrix);
-void display_matrix(Matrix* m);
-Matrix* sum_matrices(Matrix* m1, Matrix* m2);
-Matrix* subtract_matrices(Matrix* m1, Matrix* m2);
-Matrix* multiply_matrices(Matrix* m1, Matrix* m2);
-Matrix* scale_matrix(Matrix* m, double scalar);
-Matrix* transpose_matrix(Matrix* m);
-double calculate_determinant(Matrix* m);
-Matrix* invert_matrix(Matrix* m);
+Matrix* newMatrix(int numRow, int nmumCol);
+void showMatrix(Matrix* mat);
+void deletMatrix(Matrix* matrix);
+Matrix* sumMatrixs(Matrix* matA, Matrix* matB);
+Matrix* subMatrixs(Matrix* matA, Matrix* matB);
+Matrix* multMatrixs(Matrix* matA, Matrix* matB);
+Matrix* multMatrixScale(Matrix* mat, double num);
+Matrix* transpMatrix(Matrix* mat);
+double detMatrix(Matrix* mat);
+Matrix* coFactorMatrix(Matrix* mat);
+Matrix* invMatrix(Matrix* mat);
 
 #endif /* MATRIX_H */

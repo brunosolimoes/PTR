@@ -1,169 +1,239 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <stdio.h>
 #include "matrix.h"
 
-// Cria uma nova matriz com linhas e colunas especificadas
-Matrix* initialize_matrix(int rows, int cols) {
-    Matrix* m = (Matrix*)malloc(sizeof(Matrix));
-    m->rows = rows;
-    m->cols = cols;
-    m->data = (double**)malloc(rows * sizeof(double*));
-    
-    for (int i = 0; i < rows; i++) {
-        m->data[i] = (double*)malloc(cols * sizeof(double));
-    }
-    
-    return m;
-}
+//--Cria uma nova matriz recebendo linhas e colunas como parametro---//
+Matrix* newMatrix(int numRow, int numCol) {
+    Matrix* mat = (Matrix*)malloc(sizeof(Matrix));
+    if (!mat) return NULL;
 
-// Libera a memória da matriz
-void destroy_matrix(Matrix* matrix) {
-    if (matrix) {
-        for (int i = 0; i < matrix->rows; i++) {
-            free(matrix->data[i]);
-        }
-        free(matrix->data);
-        free(matrix);
-    }
-}
+    mat->numRow = numRow;
+    mat->numCol = numCol;
 
-// Soma duas matrizes
-Matrix* sum_matrices(Matrix* a, Matrix* b) {
-    Matrix* result = initialize_matrix(a->rows, a->cols);
-    for (int i = 0; i < a->rows; i++) {
-        for (int j = 0; j < a->cols; j++) {
-            result->data[i][j] = a->data[i][j] + b->data[i][j];
+    mat->data = (double**)malloc(numRow * sizeof(double*));
+
+    if (!mat->data) {
+        free(mat);
+        return NULL;
+    }
+
+    for (int i = 0; i < numRow; i++) {
+        mat->data[i] = (double*)calloc(numCol, sizeof(double));
+        
+        if (!mat->data[i]) {
+        
+            for (int j = 0; j < i; j++) free(mat->data[j]);
+
+            free(mat->data);
+            free(mat);
+            return NULL;
         }
     }
-    return result;
+
+    return mat;
 }
 
-// Subtrai a matriz b da matriz a
-Matrix* subtract_matrices(Matrix* a, Matrix* b) {
-    Matrix* result = initialize_matrix(a->rows, a->cols);
-    for (int i = 0; i < a->rows; i++) {
-        for (int j = 0; j < a->cols; j++) {
-            result->data[i][j] = a->data[i][j] - b->data[i][j];
+//-------------------------------------------------------------------//
+
+//--------------------------Imprime a matriz-------------------------//
+void showMatrix(Matrix *mat) {
+    
+    printf("\n");
+
+    for (int row = 0; row < mat->numRow; row++) {
+        for (int col = 0; col < mat->numCol; col++) {
+
+            printf("%f ", mat->data[row][col]);
+        }
+
+        printf("\n-----------------------------------------\n\n");
+    }
+}
+//-------------------------------------------------------------------//
+
+//--------------------------Deleta a matriz--------------------------//
+void deletMatrix(Matrix* mat) {
+
+    if (mat) {
+        for (int row = 0; row < mat->numRow; row++) {
+
+            free(mat->data[row]);
+        }
+
+        free(mat->data);
+        free(mat);
+    }
+}
+//-------------------------------------------------------------------//
+
+//--Cria uma nova matriz resultado da soma da matrizA com a matrizB--//
+Matrix* sumMatrixs(Matrix* matA, Matrix* matB) {
+    Matrix* matSum = newMatrix(matA->numRow, matA->numCol);
+
+    for (int row = 0; row < matA->numRow; row++) {
+        for (int col = 0; col < matA->numCol; col++) {
+            
+            matSum->data[row][col] = matA->data[row][col] + matB->data[row][col];
         }
     }
-    return result;
+    return matSum;
 }
+//-------------------------------------------------------------------//
 
-// Multiplica duas matrizes
-Matrix* multiply_matrices(Matrix* a, Matrix* b) {
-    Matrix* result = initialize_matrix(a->rows, b->cols);
+
+//Cria uma nova matriz resultado da subtração da matrizA com a matrizB//
+Matrix* subMatrixs(Matrix* matA, Matrix* matB) {
+    Matrix* matSub = newMatrix(matA->numRow, matA->numCol);
+
+    for (int row = 0; row < matA->numRow; row++) {
+        for (int col = 0; col < matA->numCol; col++) {
+            
+            matSub->data[row][col] = matA->data[row][col] - matB->data[row][col];
+        }
+    }
+    return matSub;
+}
+//-------------------------------------------------------------------//
+
+
+//Cria uma nova matriz resultado do produto da matrizA com a matrizB-//
+Matrix* multMatrixs(Matrix* matA, Matrix* matB) {
+    Matrix* matProd = newMatrix(matA->numRow, matB->numCol);
     
-    for (int i = 0; i < a->rows; i++) {
-        for (int j = 0; j < b->cols; j++) {
-            double sum = 0.0; // Inicializa a soma para cada elemento da matriz resultante
-            for (int k = 0; k < a->cols; k++) {
-                sum += a->data[i][k] * b->data[k][j];
+    for (int row = 0; row < matA->numRow; row++) {
+        for (int col = 0; col < matB->numCol; col++) {
+            double sum = 0.0;
+            
+            for (int k = 0; k < matA->numCol; k++) {            
+                sum += matA->data[row][k] * matB->data[k][col];
             }
-            result->data[i][j] = sum; // Atribui a soma ao elemento da matriz resultante
+            
+            matProd->data[row][col] = sum;
         }
     }
     
-    return result;
+    return matProd;
 }
+//-------------------------------------------------------------------//
 
-// Multiplica a matriz por um escalar
-Matrix* scale_matrix(Matrix* m, double scalar) {
-    Matrix* result = initialize_matrix(m->rows, m->cols);
-    for (int i = 0; i < m->rows; i++) {
-        for (int j = 0; j < m->cols; j++) {
-            result->data[i][j] = m->data[i][j] * scalar;
+
+//-----------------Multiplica a matriz por um escalar----------------//
+Matrix* multMatrixScale(Matrix* mat, double num) {
+    Matrix* newMat = newMatrix(mat->numRow, mat->numCol);
+    
+    for (int row = 0; row < mat->numRow; row++) {
+        for (int col = 0; col < mat->numCol; col++) {
+            
+            newMat->data[row][col] = mat->data[row][col] * num;
         }
     }
-    return result;
+    return newMat;
 }
+//-------------------------------------------------------------------//
 
-// Transpõe a matriz
-Matrix* transpose_matrix(Matrix* m) {
-    Matrix* result = initialize_matrix(m->cols, m->rows);
-    for (int i = 0; i < m->rows; i++) {
-        for (int j = 0; j < m->cols; j++) {
-            result->data[j][i] = m->data[i][j]; // Troca linhas por colunas
+
+//-------------------------Transpõe a matriz-------------------------//
+Matrix* transpMatrix(Matrix* mat) {
+    Matrix* matTransp = newMatrix(mat->numCol, mat->numRow);
+    
+    for (int row = 0; row < mat->numRow; row++) {
+        for (int col = 0; col < mat->numCol; col++) {
+    
+            matTransp->data[col][row] = mat->data[row][col];
         }
     }
-    return result;
+    return matTransp;
 }
+//-------------------------------------------------------------------//
 
-// Calcula o determinante da matriz
-double calculate_determinant(Matrix* m) {
-    if (m->rows != m->cols) {
-        return NAN; // Matriz não quadrada
+
+//------------------Calcula o determinante da matriz-----------------//
+double detMatrix(Matrix* mat) {
+    
+    if (mat->numRow != mat->numCol) {
+        return NAN;
     }
-    if (m->rows == 1) {
-        return m->data[0][0];
+    
+    if (mat->numRow == 1) {
+        return mat->data[0][0];
     }
     
     double det = 0.0;
-    for (int j = 0; j < m->cols; j++) {
-        // Cria uma submatriz removendo a primeira linha e a j-ésima coluna
-        Matrix* submatrix = initialize_matrix(m->rows - 1, m->cols - 1);
+    
+    for (int colJ = 0; colJ < mat->numCol; colJ++) {
+       
+        Matrix* submatrix = newMatrix(mat->numRow - 1, mat->numCol - 1);
         
-        for (int row = 1; row < m->rows; row++) {
-            for (int col = 0; col < m->cols; col++) {
-                if (col < j) {
-                    submatrix->data[row - 1][col] = m->data[row][col];
-                } else if (col > j) {
-                    submatrix->data[row - 1][col - 1] = m->data[row][col];
+        for (int row = 1; row < mat->numRow; row++) {
+            for (int col = 0; col < mat->numCol; col++) {
+                if (col < colJ) {
+    
+                    submatrix->data[row - 1][col] = mat->data[row][col];
+    
+                } else if (col > colJ) {
+                    
+                    submatrix->data[row - 1][col - 1] = mat->data[row][col];
                 }
             }
         }
         
-        // Acumula o determinante usando a regra de Laplace
-        det += (j % 2 == 0 ? 1 : -1) * m->data[0][j] * calculate_determinant(submatrix);
-        destroy_matrix(submatrix);
+
+        det += (colJ % 2 == 0 ? 1 : -1) * mat->data[0][colJ] * detMatrix(submatrix);
+        deletMatrix(submatrix);
+
     }
     return det;
 }
+//-------------------------------------------------------------------//
 
-// Calcula a matriz dos cofatores
-Matrix* get_cofactor_matrix(Matrix* m) {
-    Matrix* cof = initialize_matrix(m->rows, m->cols);
-    for (int i = 0; i < m->rows; i++) {
-        for (int j = 0; j < m->cols; j++) {
-            Matrix* submatrix = initialize_matrix(m->rows - 1, m->cols - 1);
-            for (int ii = 0; ii < m->rows; ii++) {
-                for (int jj = 0; jj < m->cols; jj++) {
-                    if (ii != i && jj != j) {
-                        int dest_i = ii < i ? ii : ii - 1;
-                        int dest_j = jj < j ? jj : jj - 1;
-                        submatrix->data[dest_i][dest_j] = m->data[ii][jj];
+
+//-------------------Calcula a matriz dos cofatores------------------//
+Matrix* coFactorMatrix(Matrix* mat) {
+    Matrix* cof = newMatrix(mat->numRow, mat->numCol);
+
+    for (int row = 0; row < mat->numRow; row++) {
+        for (int col = 0; col < mat->numCol; col++) {
+            Matrix* submatrix = newMatrix(mat->numRow - 1, mat->numCol - 1);
+
+            for (int rowI = 0; rowI < mat->numRow; rowI++) {
+                for (int colJ = 0; colJ < mat->numCol; colJ++) {
+                    if (rowI != row && colJ != col) {
+
+                        int dest_i = rowI < row ? rowI : rowI - 1;
+                        int dest_j = colJ < col ? colJ : colJ - 1;
+                        submatrix->data[dest_i][dest_j] = mat->data[rowI][colJ];
+
                     }
                 }
             }
-            cof->data[i][j] = pow(-1, i + j) * calculate_determinant(submatrix);
-            destroy_matrix(submatrix);
+
+            cof->data[row][col] = pow(-1, row + col) * detMatrix(submatrix);
+            deletMatrix(submatrix);
+
         }
     }
+
     return cof;
 }
+//-------------------------------------------------------------------//
 
-// Inverte a matriz
-Matrix* invert_matrix(Matrix* m) {
-    double det = calculate_determinant(m);
+
+//-------------------------Inverte a matriz-------------------------//
+Matrix* invMatrix(Matrix* mat) {
+    double det = detMatrix(mat);
+
     if (det == 0) {
-        return NULL; // Matriz não invertível
+        return NULL; 
     }
     
-    Matrix* cof = get_cofactor_matrix(m);
-    Matrix* adj = transpose_matrix(cof);
-    destroy_matrix(cof);
+    Matrix* cof = coFactorMatrix(mat);
+    Matrix* adj = transpMatrix(cof);
+    Matrix* inv = multMatrixScale(adj, 1.0 / det);
     
-    Matrix* inv = scale_matrix(adj, 1.0 / det);
-    destroy_matrix(adj);
+    deletMatrix(cof);
+    deletMatrix(adj);
+    
     return inv;
 }
-
-// Imprime a matriz
-void display_matrix(Matrix *m) {
-    for (int i = 0; i < m->rows; i++) {
-        for (int j = 0; j < m->cols; j++) {
-            printf("%f ", m->data[i][j]);
-        }
-        printf("\n");
-    }
-}
+//-------------------------------------------------------------------//

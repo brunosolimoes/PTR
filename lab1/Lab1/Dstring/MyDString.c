@@ -2,6 +2,20 @@
 #include <stdio.h>
 #include <string.h>
 
+//---------------Retorna o tamanho da string------------------//
+size_t lenString(const MyDString* s) {
+    
+    return s != NULL ? s->sizeStr : 0;
+}
+//------------------------------------------------------------//
+
+//-----------------Retorna o valor da string------------------//
+char* bufferString(const MyDString* s) {
+    
+    return s != NULL ? s->bufStr : NULL;
+}
+//------------------------------------------------------------//
+
 //-----------------------Cria as strings-----------------------//
 MyDString* newString(const char* s) {
     MyDString* string = (MyDString*) malloc(sizeof(MyDString));
@@ -78,19 +92,5 @@ void concatString(MyDString* strA, const MyDString* strB) {
             strcat(strA->bufStr, strB->bufStr);
         }
     }
-}
-//------------------------------------------------------------//
-
-//---------------Retorna o tamanho da string------------------//
-size_t lenString(const MyDString* s) {
-    
-    return s != NULL ? s->sizeStr : 0;
-}
-//------------------------------------------------------------//
-
-//-----------------Retorna o valor da string------------------//
-char* bufferString(const MyDString* s) {
-    
-    return s != NULL ? s->bufStr : NULL;
 }
 //------------------------------------------------------------//
