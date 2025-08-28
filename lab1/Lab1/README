@@ -1,0 +1,67 @@
+autor: Bruno de Moura Solimoes - 22051316
+Disciplina: programacao em tempo real
+
+
+# Projeto - laboratorio 01: Ambiente de desenvolvimento
+
+
+Este projeto contém três bibliotecas desenvolvidas em C: **DString**, **Matrix** e **Integral**.  
+Cada biblioteca está organizada em sua própria pasta, contendo:
+
+- Arquivo de implementação (`.c`)
+- Arquivo de cabeçalho (`.h`)
+- Programa de teste (`main.c`)
+- `Makefile` para compilação
+
+---
+
+## 📂 Estrutura do Projeto
+
+/Projeto
+│── /DString
+│ ├── MyDString.c
+│ ├── MyDString.h
+│ ├── main.c
+│ └── Makefile
+│
+│── /Matrix
+│ ├── Matrix.c
+│ ├── Matrix.h
+│ ├── main.c
+│ └── Makefile
+│
+│── /Integral
+│ ├── Integral.c
+│ ├── Integral.h
+│ ├── main.c
+│ └── Makefile
+│
+└── README.md
+
+## ▶️ Compilação e Execução
+
+Cada pasta possui seu próprio `Makefile`.  
+Para compilar e rodar os testes:
+
+```bash
+cd DString
+make
+./main
+
+cd ../Matrix
+make
+./main
+
+cd ../Integral
+make
+./main
+
+
+
+# Para limpar os arquivos compilados:
+
+```bash
+
+cd DString && make clean
+cd ../Matrix && make clean
+cd ../Integral && make clean
