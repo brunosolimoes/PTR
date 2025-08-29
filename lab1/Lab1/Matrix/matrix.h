@@ -10,7 +10,7 @@ typedef struct {
 
 Matrix* newMatrix(int numRow, int nmumCol);
 void showMatrix(Matrix* mat);
-void deletMatrix(Matrix* matrix);
+void deletMatrix(Matrix* mat);
 Matrix* sumMatrixs(Matrix* matA, Matrix* matB);
 Matrix* subMatrixs(Matrix* matA, Matrix* matB);
 Matrix* multMatrixs(Matrix* matA, Matrix* matB);
