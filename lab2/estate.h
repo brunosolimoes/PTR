@@ -3,7 +3,7 @@
 
 #include "model.h"
 
-// Declaração da função para calcular o movimento do robô
-void computeRobotEstate(RobotState *estate, double angVel, double deltaTime);
+//--------------------------Calcula o movimento do robô---------------------------//
+void compRobMove(RobotPosition *position, ControlInput *input, double deltaTime);
 
 #endif

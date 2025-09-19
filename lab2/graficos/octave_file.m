@@ -1,0 +1,49 @@
+% Limpa todas as variáveis da memória
+clear all;
+
+
+% Fecha todos os gráficos abertos
+close all;
+
+% Carregar os dados do arquivo
+data = dlmread('resultados.txt', ',', 1, 0); % Pula a primeira linha do cabeçalho
+
+% Extrair colunas específicas de acordo com seus dados
+t = data(:, 1);         % Tempo
+v_linear = data(:, 2);  % VelLinear (v)
+v_angular = data(:, 3); % VelAngular (w)
+x_c = data(:, 4);       % Posição X (x)
+y_c = data(:, 5);       % Posição Y (y)
+
+% Plotar Velocidade Linear e Angular em função do tempo
+figure;
+plot(t, v_linear, '-b', 'LineWidth', 1.5, 'DisplayName', 'Velocidade Linear (v)');
+hold on;
+plot(t, v_angular, '-r', 'LineWidth', 1.5, 'DisplayName', 'Velocidade Angular (w)');
+xlabel('Tempo (s)');
+ylabel('Velocidades');
+legend;
+title('Velocidade Linear e Angular ao longo do tempo');
+grid on;
+hold off;
+
+% Plotar Posições X e Y ao longo do tempo
+figure;
+plot(t, x_c, '-r', 'LineWidth', 1.5, 'DisplayName', 'Posição X');
+hold on;
+plot(t, y_c, '-g', 'LineWidth', 1.5, 'DisplayName', 'Posição Y');
+xlabel('Tempo (s)');
+ylabel('Valores de Posições');
+legend;
+title('Posições X e Y ao longo do tempo');
+grid on;
+hold off;
+
+% Plotar a Trajetória no plano (y_c x x_c)
+figure;
+plot(x_c, y_c, '-b', 'LineWidth', 1.5);
+xlabel('Posição X');
+ylabel('Posição Y');
+title('Trajetória no plano (y_c x x_c)');
+grid on;
+axis equal;

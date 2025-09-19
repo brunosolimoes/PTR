@@ -1,14 +1,15 @@
-#include "model.h"
 #include <math.h>
+#include "estate.h"
 
-// Função para calcular o movimento do robô usando nova lógica
-void computeRobotEstate(RobotState *estate, double angVel, double deltaTime) {
-  const double constLinearVel = 1.0; // Velocidade linear fixa
-
-  // Atualiza posição usando componentes do movimento
-  estate->x += deltaTime * constLinearVel * cos(estate->ang);
-  estate->y += deltaTime * constLinearVel * sin(estate->ang);
-
-  // Atualiza orientação do ângulo
-  estate->ang += deltaTime * angVel;
+//--------------------------Calcula o movimento do robô---------------------------//
+//------------------ẋ(t) = [sin(x3) 0; cos(x3) 0; 0 1] * u(t)---------------------//
+//---------------------------A entrada u(t) = [v, w]^T----------------------------//
+void compRobMove(RobotPosition *position, ControlInput *input, double deltaTime) {
+    
+    //Atualiza a posição (xc, yc) usando a velocidade linear v e a orientação θ
+    position->posX += deltaTime * input->velLinV * cos(position->angTeta);
+    position->posY += deltaTime * input->velLinV * sin(position->angTeta);
+    
+    //Atualiza a orientação θ usando a velocidade angular w
+    position->angTeta += deltaTime * input->velAngW;
 }

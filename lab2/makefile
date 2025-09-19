@@ -21,7 +21,7 @@ $(BUILD_DIR):
 
 # Como construir o programa final
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) -lm
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS) -lm -pthread
 
 # Como construir cada objeto individualmente
 $(BUILD_DIR)/main.o: main.c model.h estate.h
