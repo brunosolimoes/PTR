@@ -1,6 +1,7 @@
 % Limpa todas as variáveis da memória
 clear all;
 
+
 % Fecha todos os gráficos abertos
 close all;
 
@@ -38,7 +39,7 @@ title('Posições X e Y ao longo do tempo');
 grid on;
 hold off;
 
-% Plotar a Trajetória no plano (y_c x x_c) - **Esta é a correção**
+% Plotar a Trajetória no plano (y_c x x_c)
 figure;
 plot(x_c, y_c, '-b', 'LineWidth', 1.5);
 xlabel('Posição X');
