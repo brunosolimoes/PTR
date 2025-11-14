@@ -1,0 +1,61 @@
+autor: Bruno de Moura Solimoes - 22051316
+Disciplina: programacao em tempo real
+
+
+# Projeto - laboratorio 02: Sistema de Controle Distribuído Simples
+
+No diretório resultados, encontra-se os em respectivas pastas os resultados obtidos quando o sistema simulou com carga e sem carga,
+acompanhado das imagens usadas no relatório da atividade.
+
+
+## 📂 Estrutura do Projeto
+.
+├── estate.c
+├── estate.h
+├── graficos
+│   ├── octave_file.m
+│   └── Octave_graficos.txt
+├── LEIA-ME.txt
+├── main.c
+├── makefile
+├── model.c
+├── model.h
+└── resultados
+    ├── com_carga
+    │   ├── Posições X e Y ao longo do tempo.png
+    │   ├── resultados.txt
+    │   ├── Trajetória no plano XY.png
+    │   └── Velocidade Linear e Angular ao longo do tempo.png
+    ├── resultados.txt
+    └── sem_carga
+        ├── Posições X e Y ao longo do tempo.png
+        ├── resultados.txt
+        ├── Trajetória no plano XY.png
+        └── Velocidade Linear e Angular do longo do tempo.png
+
+## ▶️ Compilação e Execução
+
+Abra o terminal e navegue até o diretório do projeto.
+Execute o comando para compilar o programa:
+make
+
+Esse comando compilará o programa e gerará o executável no diretório build com o nome simulacao
+
+Após a compilação, para executar o programa, use o seguinte comando no terminal:
+./build/simulacao
+
+## Saída:
+O programa cria um arquivo chamado resultados.txt no diretório do projeto, contendo os resultados da simulação, organizados no formato:
+Tempo,VelLinear(v),VelAngular(w),PosX_Frente(x),PosY_Frente(y)
+
+Para rodar o arquivo octave_file.m e visualizar os gráficos, mova o arquivo resultados.txt para a pasta graficos
+mv resultados.txt graficos/
+
+O código .m executará corretamente se ele e o arquivo resultados.txt estiverem no mesmo diretório
+
+# Para limpar os arquivos compilados:
+
+Para remover todos os arquivos compilados e o executável, execute:
+make clean
+
+Isso limpará a pasta build e os arquivos-objeto gerados durante a compilação.
